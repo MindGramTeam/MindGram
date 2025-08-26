@@ -1,0 +1,23 @@
+# 공통
+node_modules/
+dist/
+build/
+coverage/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE/OS
+.vscode/
+.idea/
+
+# 프론트(Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# 백엔드
+backend/node_modules/
+backend/dist/
