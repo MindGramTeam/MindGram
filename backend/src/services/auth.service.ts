@@ -24,10 +24,10 @@ export async function register( input: { email: string; password: string; name: 
 
 export async function login(input: { email: string; password: string }) {
     const user = await userRepo.findByEmail(input.email);
-    if (!user) throw new Error('Invalid email or password');
+    if (!user) throw new Error('이메일 또는 비밀번호가 올바르지 않습니다.');
 
     const ok = await bcrypt.compare(input.password, user.passwordHash);
-    if (!ok) throw new Error('Invalid email or password');
+    if (!ok) throw new Error('이메일 또는 비밀번호가 올바르지 않습니다.');
 
     const token = jwt.sign(
         { id: user.id, email: user.email },
