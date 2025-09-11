@@ -8,5 +8,10 @@
     "skipLibCheck": true,
     "outDir": "dist"
   },
+  "ts-node" : {
+    "tsm" : true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
+  },
   "include": ["src"]
 }
