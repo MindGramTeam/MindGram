@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Signup from "./Signup/Signup";
-import Home from "./Home/Home";
-import Login from "./Login/Login";
-import Maker from "./maker/maker";
+import Signup from "./pages/Signup/Signup";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Maker from "./pages/maker/maker";
 
 function App() {
   return (
