@@ -2,7 +2,7 @@ import { openai, MODEL } from './openai';
 import { fetchNews } from './new.service';
 
 export async function suggestKeywords(topic: string, count = 8) {
-    const sys = "너는 한국어 정복검색 전문가다. 키워드는 짧게, 중법 없이.";
+    const sys = "너는 한국어 정보 검색 전문가다. 키워드는 짧게, 중복 없이.";
     
     const usr = `주제: "${topic}" 
     필요: 검색어 바로 쓸 수 있는 연관 키워드 ${count}게.
@@ -50,4 +50,5 @@ export async function buildNodePayload(topic: string, opts? : {newsLimit? : numb
     const ideas = await generateIdeas(topic, news, 3);
 
     return { topic, keywords, news, ideas};
+
 }
