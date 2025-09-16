@@ -1,0 +1,71 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 16px;
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.mindgram {
+  width: 100px;
+  height: auto;
+  margin: 0 auto 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.input {
+  border: none;
+  border-radius: 999px;
+  background: var(--input);
+  padding: 14px 20px;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+}
+
+.id-button:hover {
+  background: #06202e;
+}
+
+.login {
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
