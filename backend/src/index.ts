@@ -10,7 +10,7 @@ const port = env.PORT;
 
 app.use(cors());    // 프론트엔트와 연결하기 윈한 CORS 초기화
 app.use(express.json());
-app.use(express.urlencoded { extended: false });
+app.use(express.urlencoded ({ extended: false }));
 app.use(cookieParser());
 app.use("/api/ai", aiRoutes);
 
