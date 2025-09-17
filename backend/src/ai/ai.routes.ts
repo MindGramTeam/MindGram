@@ -1,4 +1,3 @@
-// src/ai/ai.routes.ts
 import { Router } from "express";
 import { z } from "zod";
 import { buildNodePayload, expandNodes, suggestKeywords } from "./ai.service";
@@ -136,3 +135,4 @@ router.get("/random", async (req, res) => {
 });
 
 export default router;
+
