@@ -29,98 +29,95 @@ export async function openaiJSON(params: OpenAIJSONParams) {
     }
 
     const model = params.model ?? MODEL;
-
     const rf: ResponseFormat =
         params.response_format?.type === "json_schema"
-        ? params.response_format
-        : params.response_format?.type === "text"
-        ? { type: "text" }
-        : { type: "json_object" }; 
+            ? params.response_format
+            : params.response_format?.type === "text"
+            ? { type: "text" }
+            : { type: "json_object" };
 
     if (!Array.isArray(params.messages) || params.messages.length === 0) {
         throw new Error("messages 배열이 비어 있습니다.");
     }
 
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), 30_000);
-
     let lastErr: any = null;
+
     for (let attempt = 0; attempt < 2; attempt++) {
+        const controller = new AbortController();                 
+        const timer = setTimeout(() => controller.abort(), 30_000);
+
         try {
             const res = await fetch(OPENAI_URL, {
                 method: "POST",
-                signal: controller.signal,
+                signal: controller.signal,                    
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${apiKey}`,
                 },
-                
                 body: JSON.stringify({
                     model,
                     messages: params.messages,
-                    response_format: rf, 
+                    response_format: rf,
                     temperature: params.temperature,
                     top_p: params.top_p,
                     max_tokens: params.max_tokens,
                 }),
-        });
+            });
 
-        clearTimeout(id);
+            clearTimeout(timer);
 
-        const text = await res.text();
-        let data: any = null;
-        try { 
-            data = JSON.parse(text); 
-        } catch { 
-            /* 일부 에러가 pure text일 수 있음 */ 
-        }
+            const text = await res.text();
+            let data: any = null;
+            try { data = JSON.parse(text); } catch {}
 
-        if (!res.ok) {
-        const errMsg =
-            data?.error?.message ??
-            data?.message ??
-            text ??
-            `HTTP ${res.status}`;
-        const detail = {
-            status: res.status,
-            type: data?.error?.type,
-            code: data?.error?.code,
-            param: data?.error?.param,
-            message: errMsg,
-        };
-        
-        if ((res.status === 429 || (res.status >= 500 && res.status < 600)) && attempt === 0) {
-            await sleep(600 + Math.random() * 400);
-            continue;
-        }
-        throw new Error(`OpenAI error ${res.status}: ${JSON.stringify(detail)}`);
-        }
+            if (!res.ok) {
+                const errMsg =
+                    data?.error?.message ??
+                    data?.message ??
+                    text ??
+                    `HTTP ${res.status}`;
+                const detail = {
+                    status: res.status,
+                    type: data?.error?.type,
+                    code: data?.error?.code,
+                    param: data?.error?.param,
+                    message: errMsg,
+                };
 
-        const choice = data?.choices?.[0]?.message;
-        const content =
-        choice?.content ??
-        data?.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments ??
-        "";
-
-        if (rf.type === "json_object" || rf.type === "json_schema") {
-            try {
-                return JSON.parse(content || "{}");
-            } catch (e) {
-                throw new Error(`모델이 JSON이 아닌 응답을 반환했습니다: ${content?.slice(0, 200)}`);
+                if ((res.status === 429 || (res.status >= 500 && res.status < 600)) && attempt === 0) {
+                    await sleep(600 + Math.random() * 400);
+                    continue;
+                }
+                throw new Error(`OpenAI error ${res.status}: ${JSON.stringify(detail)}`);
             }
-        } else {
-            return { 
-                text: String(content ?? "") 
-            };
-        }
+
+            const choice = data?.choices?.[0]?.message;
+            const content =
+                choice?.content ??
+                data?.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments ??
+                "";
+
+            if (rf.type === "json_object" || rf.type === "json_schema") {
+                try {
+                    return JSON.parse(content || "{}");
+                } catch {
+                    throw new Error(`모델이 JSON이 아닌 응답을 반환했습니다: ${String(content).slice(0, 200)}`);
+                }
+            } else {
+                return { text: String(content ?? "") };
+            }
         } catch (err: any) {
-            lastErr = err.name === "AbortError" ? new Error("OpenAI 요청이 타임아웃(30s)되었습니다.") : err;
+            clearTimeout(timer);                                  // ★ 누락 방지
+            lastErr = err.name === "AbortError"
+                ? new Error("OpenAI 요청이 타임아웃(30s)되었습니다.")
+                : err;
+
             if (attempt === 0) {
-            await sleep(500);
-            continue;
+                await sleep(500);
+                continue;
             }
         }
     }
-    
+
     throw lastErr;
 }
