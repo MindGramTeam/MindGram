@@ -248,27 +248,6 @@ body {
   border-bottom: 0;
 }
 
-.maker-context {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  padding: 14px 16px;
-  width: 220px;
-  font-size: 13px;
-  color: #2c3c50;
-}
-.maker-context > div {
-  padding: 6px 4px;
-  border-radius: 8px;
-}
-.maker-context > div:hover {
-  background: #f5f8ff;
-}
-
 .maker-bottom-toolbar {
   position: absolute;
   left: 50%;
@@ -297,7 +276,7 @@ body {
 .maker-bottom-toolbar .value {
   min-width: 36px;
   text-align: center;
-  color: #2c3c50;
+  color: var(--ink);
 }
 
 .maker-zoom {
@@ -327,4 +306,64 @@ body {
   align-items: center;
   justify-content: center;
   color: #2c3c50;
+}
+
+/* === 수정된 노드 & 컨텍스트 메뉴 부분 === */
+.node {
+  background: #fff;
+  padding: 14px 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  cursor: grab;
+  position: absolute;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  min-width: 140px;
+  text-align: center;
+}
+.node:active {
+  cursor: grabbing;
+}
+
+.context-menu {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.context-menu button {
+  background: var(--nav);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.context-menu button:hover {
+  background: #06202e;
+}
+
+.maker-context {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  width: 220px;
+  font-size: 13px;
+  color: #2c3c50;
+}
+.maker-context > div {
+  padding: 6px 4px;
+  border-radius: 8px;
+}
+.maker-context > div:hover {
+  background: #f5f8ff;
 }

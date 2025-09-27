@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../image/logo.png";
+import logo from "@/image/logo.png";
 import "./Home.css";
 import { motion } from "framer-motion";
 
@@ -11,7 +11,9 @@ function Home() {
     <div className="home-wrapper">
       <header className="home-header">
         <div className="logo">
-          <img src={logo} />
+          <a href="/home">
+            <img src={logo} />
+          </a>
         </div>
         <input
           type="text"
