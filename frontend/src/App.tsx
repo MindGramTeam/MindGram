@@ -1,16 +1,18 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Signin from './Signin';
-import Home from './Home';
-import Login from './Login';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Signup from "@/pages/auth/Signup/Signup";
+import Home from "@/pages/Home/Home";
+import Login from "@/pages/auth/Login/Login";
+import Maker from "@/pages/maker/maker";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
-      <Route path="/Signin" element={<Signin />} />
+      <Route path="/Signup" element={<Signup />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/Maker" element={<Maker />} />
     </Routes>
   );
 }
