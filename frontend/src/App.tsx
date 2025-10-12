@@ -1,9 +1,10 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Signup from "@/pages/auth/Signup/Signup";
-import Home from "@/pages/Home/Home";
-import Login from "@/pages/auth/Login/Login";
+import Signup from "@/pages/auth/signup/Signup";
+import Home from "@/pages/home/Home";
+import Login from "@/pages/auth/login/Login";
 import Maker from "@/pages/maker/maker";
+import Community from "@/pages/community/Community";
 
 function App() {
   return (
@@ -13,8 +14,10 @@ function App() {
       <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Maker" element={<Maker />} />
+      <Route path="/Community" element={<Community />} />
     </Routes>
   );
 }
 
 export default App;
+
