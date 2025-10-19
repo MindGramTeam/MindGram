@@ -4,6 +4,7 @@ import Signup from "@/pages/auth/signup/Signup";
 import Home from "@/pages/home/Home";
 import Login from "@/pages/auth/login/Login";
 import Maker from "@/pages/maker/maker";
+import Community from "@/pages/community/Community";
 
 function App() {
   return (
@@ -13,8 +14,10 @@ function App() {
       <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Maker" element={<Maker />} />
+      <Route path="/Community" element={<Community />} />
     </Routes>
   );
 }
 
 export default App;
+
