@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./maker.css";
+import "./Maker.css";
 import { useNavigate } from "react-router-dom";
 import logo from "@/image/logo.png";
 import { motion } from "framer-motion";
