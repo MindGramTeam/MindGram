@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { login, register } from '../services/auth.service';
+import { loginSchema, registerSchema, LoginInput, RegisterInput } from '../schemas/auth.schema';
+import { AppError, DuplicateEmailError, UnaturhorizedError } from '../utils/error';
 
 export const registerController = async (req: Request, res: Response) => {
     try {

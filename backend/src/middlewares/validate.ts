@@ -10,7 +10,6 @@ export const validate =
             errors: result.error.flatten(), 
             });
         }
-    // 유효하면 body를 파싱된 형태로 덮어쓰기 (타입 안전)
         req.body = result.data as any;
         next();
     };
